@@ -1,15 +1,15 @@
 const pRetry = require('p-retry');
 
-const ARLOZOROV_LOC = {
-    lat:32.0873,
-    lon:34.7737,
+const HOME_LOC = {
+    lat:32.0881,
+    lon:34.7821,
 }
 
 const ASOTA = "אסותא"
 
 function getLocation(staticData) {
     if (staticData.Name === ASOTA){ //No location provided
-        return ARLOZOROV_LOC;
+        return HOME_LOC;
     }
     return {
         lat: staticData.GPSLattitude,
@@ -65,7 +65,7 @@ export async function getParkinglots(){
     parkingList = parkingList.filter((val) =>val.availability !== 'NA');
 
     //sort by location nearest to home
-    parkingList.sort((a,b)=>getDist(ARLOZOROV_LOC,a.location)>getDist(ARLOZOROV_LOC,b.location) ?1:-1 );
+    parkingList.sort((a,b)=>getDist(HOME_LOC,a.location)>getDist(HOME_LOC,b.location) ?1:-1 );
 
     return parkingList;
 
@@ -111,7 +111,7 @@ export async function getParkingServer(){
     parkingList = parkingList.filter((val) =>val.availability != 'NA');
 
     //sort by location nearest to home
-    parkingList.sort((a,b)=>getDist(ARLOZOROV_LOC,a.location)>getDist(ARLOZOROV_LOC,b.location) ?1:-1 );
+    parkingList.sort((a,b)=>getDist(HOME_LOC,a.location)>getDist(HOME_LOC,b.location) ?1:-1 );
 
     return parkingList;
 
